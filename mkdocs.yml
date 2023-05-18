@@ -1,4 +1,44 @@
 site_name: kache
+site_url: https://kacheio.github.io/docs/
+site_author: kache.io
+site_description: >-
+  Open source cloud-native web accelerator
+
+# Repository
+repo_name: kacheio/kache
+repo_url: https://github.com/kachio/kache
+
+# Copyright
+copyright: Copyright &copy; 2023 kache.io
 
 theme:
   name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/favicon.png
+  logo: assets/logo.png
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/kacheio
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/kacheio
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/kacheio
