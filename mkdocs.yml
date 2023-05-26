@@ -78,3 +78,6 @@ nav:
   - Setup:
       - setup/index.md
 
+  - Reference:
+      - reference/index.md
+
