@@ -13,6 +13,7 @@ copyright: Copyright &copy; 2023 kache.io
 
 theme:
   name: material
+  # custom_dir: material/.overrides
   features:
     # - announce.dismiss
     # - content.action.edit
@@ -72,3 +73,5 @@ nav:
   - Home: index.md
   - Getting started:
       - Installation: getting-started.md
+      - License: license.md
+
