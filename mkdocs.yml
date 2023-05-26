@@ -75,3 +75,6 @@ nav:
       - Installation: getting-started.md
       - License: license.md
 
+  - Setup:
+      - setup/index.md
+
