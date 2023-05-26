@@ -66,3 +66,9 @@ extra:
       link: https://hub.docker.com/r/kacheio
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/kacheio
+
+# Page tree
+nav:
+  - Home: index.md
+  - Getting started:
+      - Installation: getting-started.md
