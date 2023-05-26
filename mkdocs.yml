@@ -81,3 +81,5 @@ nav:
   - Reference:
       - reference/index.md
 
+  - Blog:
+      - blog/index.md
