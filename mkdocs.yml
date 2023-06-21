@@ -69,8 +69,17 @@ extra:
       link: https://twitter.com/kacheio
 
 markdown_extensions:
+  # Admonitions
   - admonition
   - pymdownx.details
+  - pymdownx.superfences
+  # Code Blocks
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.superfences
 
 # Page tree
