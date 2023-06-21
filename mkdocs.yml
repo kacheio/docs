@@ -68,6 +68,11 @@ extra:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/kacheio
 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
 # Page tree
 nav:
   - Home: index.md
