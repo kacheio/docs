@@ -86,6 +86,7 @@ nav: # Page tree.
   - Home: index.md
   - Getting started:
       - Quick Start: intro/quick-start.md
+      - intro/installation.md
       - License:
           - license.md
 
