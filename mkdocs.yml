@@ -82,12 +82,13 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
 
-# Page tree
-nav:
+nav: # Page tree.
   - Home: index.md
   - Getting started:
-      - Installation: getting-started.md
-      - License: license.md
+      - Quick Start: intro/quick-start.md
+      - License:
+          - license.md
+
 
   - Setup:
       - setup/index.md
