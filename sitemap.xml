@@ -21,6 +21,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://kacheio.github.io/intro/installation/</loc>
+         <lastmod>2023-06-22</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://kacheio.github.io/intro/quick-start/</loc>
          <lastmod>2023-06-22</lastmod>
          <changefreq>daily</changefreq>
