@@ -1,6 +1,6 @@
 # Quick Start
 
-The following describes how to run kache on a locally with Docker.
+The following describes how to run kache locally with Docker.
 
 ### Set up a docker-compose
 
@@ -17,7 +17,7 @@ services:
     # Start the container with the mounted config file.
     command:
       - "-config.file=/etc/kache/kache.sample.yml"
-    # Expose port that are configured in the kache config file.
+    # Expose ports that are configured in the kache config file.
     ports:
       - "80:80"
       - "8080:8080"
@@ -38,11 +38,11 @@ That's all you need to run Kache with Redis as a distributed caching backend.
 
 ### Run kache
 
-Now start your HTTP cache with the following command:
+Now start Kache with the following command:
 
 ```
 docker-compose -f cloud/docker/docker-compose.yml up 
 ```
 
 ### Access kache
-You can now start browsing `http://localhost:8080/` and access Kache's API and get all the keys from the cache under `http://localhost:1338/api/v1/cache/keys`.
+You can now access the service under `http://localhost:8080/` and the API under `http://localhost:1338/api/cache/keys` which returns all the keys currentlz in the cache.

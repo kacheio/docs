@@ -81,11 +81,16 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  # Content Tabs
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
 
 nav: # Page tree.
   - Home: index.md
   - Getting started:
       - Quick Start: intro/quick-start.md
+      - Kubernetes: intro/quick-start-k8s.md
       - intro/installation.md
       - License:
           - license.md
