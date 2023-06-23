@@ -85,6 +85,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+  - footnotes
 
 nav: # Page tree.
   - Home: index.md
@@ -105,6 +106,7 @@ nav: # Page tree.
       - reference/index.md
       - reference/listeners.md
       - reference/targets.md
+      - Cache: reference/cache.md
 
   - Blog:
       - blog/index.md
