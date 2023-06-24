@@ -56,6 +56,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://kacheio.github.io/reference/logging/</loc>
+         <lastmod>2023-06-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://kacheio.github.io/reference/provider/</loc>
          <lastmod>2023-06-24</lastmod>
          <changefreq>daily</changefreq>
