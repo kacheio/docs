@@ -92,6 +92,7 @@ nav: # Page tree.
   - Getting started:
       - Quick Start: intro/quick-start.md
       - Kubernetes: intro/quick-start-k8s.md
+      - intro/configuration.md
       - intro/installation.md
       - License:
           - license.md
