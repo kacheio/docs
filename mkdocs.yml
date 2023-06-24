@@ -107,6 +107,7 @@ nav: # Page tree.
       - reference/listeners.md
       - reference/targets.md
       - Cache: reference/cache.md
+      - reference/provider.md
 
   - Blog:
       - blog/index.md
