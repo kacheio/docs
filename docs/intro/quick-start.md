@@ -45,4 +45,4 @@ docker-compose -f cloud/docker/docker-compose.yml up
 ```
 
 ### Access kache
-You can now access the service under `http://localhost:8080/` and the API under `http://localhost:1338/api/cache/keys` which returns all the keys currentlz in the cache.
+You can now access the service under `http://localhost:8080/` and the API under `http://localhost:1338/api/cache/keys` which, for example, returns all the keys currently in the cache.

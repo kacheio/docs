@@ -100,8 +100,8 @@ nav: # Page tree.
       - Support:
           - support.md
 
-  - Setup:
-      - setup/index.md
+  # - Setup:
+  #     - setup/index.md
 
   - Reference:
       - reference/index.md

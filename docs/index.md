@@ -1,3 +1,3 @@
 # Welcome
 
-kache is a modern cloud-native web accelerator and HTTP cache proxy that is highly available, reliable, and performant. It supports the latest RFC specifications and should be able to handle high traffic loads, be easily scalable, and support distributed caching systems.
+kache is a modern cloud-native web accelerator and HTTP caching proxy that is highly available, reliable, and performant. It supports the latest RFC specifications and is capable of handling high traffic loads, scaling easily, and supporting distributed caching systems.
