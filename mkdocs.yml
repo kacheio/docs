@@ -113,6 +113,8 @@ nav: # Page tree.
       - reference/api.md
       - Configuration:
           - reference/file.md
+  - API:
+      - Endpoints: reference/api_specification.md
 
   - Blog:
       - blog/index.md
