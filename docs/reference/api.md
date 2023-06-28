@@ -13,12 +13,12 @@ For example, the following configuration exposes the API on the specified port a
     debug: true
   ```
 
-The Kache API endpoints are generally available under path prefix `/api`. A complete overview of the API and its endpoints is available [here](./api_specification.md).
+The Kache API endpoints are generally available under path prefix `/api`, unless not specified a different prefix. A complete overview of the API and its endpoints is available [here](./api_specification.md).
 
 ### Reference
 
 | Directive     | Type        | Description                          |
 | -----------   | ----------- | ------------------------------------ |
 | `port`        | `string`    | The port the API is available at.      |
-| `path`        | `string`    | Adds a custom path prefix.           |
+| `prefix`      | `string`    | Adds a custom path prefix.           |
 | `debug`       | `bool`      | Activates debug endpoints.           |
