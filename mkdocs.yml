@@ -1,4 +1,4 @@
-site_name: kache
+site_name: KACHE
 site_url: https://kacheio.github.io
 site_author: kache.io
 site_description: >-
@@ -39,15 +39,17 @@ theme:
     - toc.follow
     # - toc.integrate
   palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: purple
       toggle:
         icon: material/lightbulb
         name: Switch to dark mode
-    - scheme: slate
-      primary: indigo
-      accent: indigo
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: purple
       toggle:
         icon: material/lightbulb-outline
         name: Switch to light mode
