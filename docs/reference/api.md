@@ -19,6 +19,7 @@ The Kache API endpoints are generally available under path prefix `/api`, unless
 
 | Directive     | Type        | Description                          |
 | -----------   | ----------- | ------------------------------------ |
-| `port`        | `string`    | The port the API is available at.      |
+| `port`        | `string`    | The port the API is available at.    |
 | `prefix`      | `string`    | Adds a custom path prefix.           |
+| `acl`         | `string`    | The access control list (ACL) is a comma-separated list of IP addresses granted to access the API. |
 | `debug`       | `bool`      | Activates debug endpoints.           |
