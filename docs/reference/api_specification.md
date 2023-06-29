@@ -9,6 +9,16 @@ Kache supports the [configuration of an access control list](#acl), which grants
 
 In production, it should be further protected by application level protection mechanisms, e.g., secured by authentication and authorization. Or, by transport level protection mechanisms such as NOT publicly exposing the API's port, but keeping it restricted to internal networks (principle of least privilege, applied to networks).
 
+## Cache Management
+
+### Purging a cache key
+
+Purging a key from the cache is done by isssuing a `PURGE` request to the API root available at the 
+specified API port. The cache key is retrieved from a custom request header `X-Purge-Key`.
+
+``` sh
+curl -v -X PURGE -H 'X-Purge-Key: <cache-key>' kacheserver:$PORT
+```
 
 ## Configuration
 
@@ -70,9 +80,9 @@ Activate endpoints for general debug informations.
 
 | Path                                  | Method | Description                          |
 | ------------------------------------- | ------ | ------------------------------------ |
+| `/`                                   | `PURGE`| Purges a `<key>` from the cache.     |
 | `/api/cache/keys`                     | `GET`  | Returns the keys currently in the cache.  |
 | `/api/cache/keys/<key>`               | `GET`  | Returns the key info about `<key>`.  |
-| `/api/cache/keys/purge?key=<key>`     | `GET`  | Purges a `<key>` from the cache |
 | `/api/version`                        | `GET`  | Returns the Kache version info.  |
 | `/debug/vars`                         | `GET`  | See the [expvar](https://pkg.go.dev/expvar) Go documentation. |
 | `/debug/pprof`                        | `GET`  | See the [pprof Index](https://golang.org/pkg/net/http/pprof/#Index) Go documentation. |
