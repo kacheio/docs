@@ -14,10 +14,12 @@ In production, it should be further protected by application level protection me
 ### Purging a cache key
 
 Purging a key from the cache is done by isssuing a `PURGE` request to the API root available at the 
-specified API port. The cache key is retrieved from a custom request header `X-Purge-Key`.
+specified API port. The cache key is retrieved from a custom request header `X-Purge-Key`. When specified
+in wildcard syntax, all matching keys will be purged from the cache. If the specified key is an empty
+string, all keys will be purged from the cache, similar to a cache flush.
 
 ``` sh
-curl -v -X PURGE -H 'X-Purge-Key: <cache-key>' kacheserver:$PORT
+curl -v -X PURGE -H 'X-Purge-Key: <cache-key-pattern>' kacheserver:$PORT
 ```
 
 ## Configuration
