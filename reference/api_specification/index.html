@@ -1097,8 +1097,10 @@
 <h2 id="cache-management">Cache Management</h2>
 <h3 id="purging-a-cache-key">Purging a cache key</h3>
 <p>Purging a key from the cache is done by isssuing a <code>PURGE</code> request to the API root available at the 
-specified API port. The cache key is retrieved from a custom request header <code>X-Purge-Key</code>.</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-v<span class="w"> </span>-X<span class="w"> </span>PURGE<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;X-Purge-Key: &lt;cache-key&gt;&#39;</span><span class="w"> </span>kacheserver:<span class="nv">$PORT</span>
+specified API port. The cache key is retrieved from a custom request header <code>X-Purge-Key</code>. When specified
+in wildcard syntax, all matching keys will be purged from the cache. If the specified key is an empty
+string, all keys will be purged from the cache, similar to a cache flush.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-v<span class="w"> </span>-X<span class="w"> </span>PURGE<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;X-Purge-Key: &lt;cache-key-pattern&gt;&#39;</span><span class="w"> </span>kacheserver:<span class="nv">$PORT</span>
 </span></code></pre></div>
 <h2 id="configuration">Configuration</h2>
 <h3 id="port">Port</h3>
