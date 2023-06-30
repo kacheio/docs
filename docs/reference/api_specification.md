@@ -80,15 +80,16 @@ Activate endpoints for general debug informations.
 
 ## Endpoints
 
-| Path                                  | Method | Description                          |
-| ------------------------------------- | ------ | ------------------------------------ |
-| `/`                                   | `PURGE`| Purges a `<key>` from the cache.     |
-| `/api/cache/keys`                     | `GET`  | Returns the keys currently in the cache.  |
-| `/api/cache/keys/<key>`               | `GET`  | Returns the key info about `<key>`.  |
-| `/api/version`                        | `GET`  | Returns the Kache version info.  |
-| `/debug/vars`                         | `GET`  | See the [expvar](https://pkg.go.dev/expvar) Go documentation. |
-| `/debug/pprof`                        | `GET`  | See the [pprof Index](https://golang.org/pkg/net/http/pprof/#Index) Go documentation. |
-| `/debug/pprof/cmdline`                | `GET`  | See the [pprof Cmdline](https://golang.org/pkg/net/http/pprof/#Cmdline) Go documentation. |
-| `/debug/pprof/profile`                | `GET`  | See the [pprof Profile](https://golang.org/pkg/net/http/pprof/#Profile) Go documentation. |
-| `/debug/pprof/symbol`                 | `GET`  | See the [pprof Symbol](https://golang.org/pkg/net/http/pprof/#Symbol) Go documentation. |
-| `/debug/pprof/trace`                  | `GET`  | See the [pprof Trace](https://golang.org/pkg/net/http/pprof/#Trace) Go documentation. |
+| Path                                  | Method    | Description                          |
+| ------------------------------------- | --------- | ------------------------------------ |
+| `/`                                   | `PURGE`   | Purges a `<key>` from the cache.     |
+| `/api/cache/keys`                     | `GET`     | Returns the keys currently in the cache.  |
+| `/api/cache/keys/<key>`               | `GET`     | Returns the key info about `<key>`.  |
+| `/api/cache/flush`                    | `DELETE`  | Flushes all keys from the cache.  |
+| `/api/version`                        | `GET`     | Returns the Kache version info.  |
+| `/debug/vars`                         | `GET`     | See the [expvar](https://pkg.go.dev/expvar) Go documentation. |
+| `/debug/pprof`                        | `GET`     | See the [pprof Index](https://golang.org/pkg/net/http/pprof/#Index) Go documentation. |
+| `/debug/pprof/cmdline`                | `GET`     | See the [pprof Cmdline](https://golang.org/pkg/net/http/pprof/#Cmdline) Go documentation. |
+| `/debug/pprof/profile`                | `GET`     | See the [pprof Profile](https://golang.org/pkg/net/http/pprof/#Profile) Go documentation. |
+| `/debug/pprof/symbol`                 | `GET`     | See the [pprof Symbol](https://golang.org/pkg/net/http/pprof/#Symbol) Go documentation. |
+| `/debug/pprof/trace`                  | `GET`     | See the [pprof Trace](https://golang.org/pkg/net/http/pprof/#Trace) Go documentation. |
