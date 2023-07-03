@@ -37,7 +37,7 @@ This enables the API and exposes its endpoints via the specified port.
 
 ### Prefix
 
-Configure a custom path prefix for all API endpoints, other than debug.
+Configure a custom path prefix for all API endpoints, other than debug, version, and purge.
 
 === "YAML"
   ``` yaml
@@ -82,11 +82,11 @@ Activate endpoints for general debug informations.
 
 | Path                                  | Method    | Description                          |
 | ------------------------------------- | --------- | ------------------------------------ |
-| `/`                                   | `PURGE`   | Purges a `<key>` from the cache.     |
-| `/api/cache/keys`                     | `GET`     | Returns the keys currently in the cache.  |
-| `/api/cache/keys/<key>`               | `GET`     | Returns the key info about `<key>`.  |
-| `/api/cache/flush`                    | `DELETE`  | Flushes all keys from the cache.  |
-| `/api/version`                        | `GET`     | Returns the Kache version info.  |
+| `/`                                   | `PURGE`   | Purges a `<key>` from the cache. The cache key is retrieved from a custom request header `X-Purge-Key` and support wildcard matching.     |
+| `/<api-prefix>/cache/keys`            | `GET`     | Returns the keys currently in the cache.  |
+| `/<api-prefix>/cache/keys/<key>`      | `GET`     | Returns the key info about `<key>`.  |
+| `/<api-prefix>/cache/flush`           | `DELETE`  | Flushes all keys from the cache.  |
+| `/version`                            | `GET`     | Returns the Kache version info.  |
 | `/debug/vars`                         | `GET`     | See the [expvar](https://pkg.go.dev/expvar) Go documentation. |
 | `/debug/pprof`                        | `GET`     | See the [pprof Index](https://golang.org/pkg/net/http/pprof/#Index) Go documentation. |
 | `/debug/pprof/cmdline`                | `GET`     | See the [pprof Cmdline](https://golang.org/pkg/net/http/pprof/#Cmdline) Go documentation. |
