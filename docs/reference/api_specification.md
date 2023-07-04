@@ -22,6 +22,75 @@ string, all keys will be purged from the cache, similar to a cache flush.
 curl -v -X PURGE -H 'X-Purge-Key: <cache-key-pattern>' kacheserver:$PORT
 ```
 
+### Flush cache keys
+
+Flushing the cache deletes all the keys from the cache:
+
+``` sh
+curl -v -X DELETE 'kacheserver:$PORT/<api-prefix>/cache/flush'
+```
+
+### List cache keys
+
+To list all the keys in the cache:
+
+``` sh
+curl -v -X GET 'kacheserver:$PORT/<api-prefix>/cache/keys'
+```
+
+### Cache configuration
+
+The API provides endpoints to render and update the current cache configuration. Updating the cache configuration via the API currently only updates the runtime configuration and does not keep the changes in the specified configuration file that is loaded when kachserver is started. Thus, the changes are not preserved when the service is restarted.
+
+Rendering the configuration:
+```sh
+curl -v -X GET 'kacheserver:$PORT/<api-prefix>/cache/config'
+```
+
+Updating the configuration:
+
+??? example "Example: Update cache configuration"
+    === "cURL"
+    ```sh
+    curl --location --request PUT 'kacheserver:$PORT/<api-prefix>/cache/config/update' \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "x_header": true,
+            "x_header_name": "x-kache",
+            "default_ttl": "1200s",
+            "default_cache_control": "max-age=120s",
+            "force_cache_control": false,
+            "timeouts": [
+                {
+                    "path": "/archive",
+                    "ttl": 86400s
+                },
+                {
+                    "path": "^/assets/([a-z0-9].*).css",
+                    "ttl": 30s
+                }
+            ],
+            "exclude": {
+                "path": [
+                    "^/admin",
+                    "^/test",
+                    "^/.well-known/acme-challenge/(.*)"
+                ],
+                "header": {
+                    "x_requested_with": "XMLHttpRequest"
+                },
+                "content": [
+                    {
+                        "type": "application/javascript|text/css|image/.*",
+                        "size": 10000
+                    }
+                ]
+            }
+        }'
+    ```
+
+
+
 ## Configuration
 
 ### Port
@@ -86,6 +155,8 @@ Activate endpoints for general debug informations.
 | `/<api-prefix>/cache/keys`            | `GET`     | Returns the keys currently in the cache.  |
 | `/<api-prefix>/cache/keys/<key>`      | `GET`     | Returns the key info about `<key>`.  |
 | `/<api-prefix>/cache/flush`           | `DELETE`  | Flushes all keys from the cache.  |
+| `/<api-prefix>/cache/config`          | `GET`     | Renders the current cache config.  |
+| `/<api-prefix>/cache/config/update`   | `PUT`     | Updates the current cache config.  |
 | `/version`                            | `GET`     | Returns the Kache version info.  |
 | `/debug/vars`                         | `GET`     | See the [expvar](https://pkg.go.dev/expvar) Go documentation. |
 | `/debug/pprof`                        | `GET`     | See the [pprof Index](https://golang.org/pkg/net/http/pprof/#Index) Go documentation. |
