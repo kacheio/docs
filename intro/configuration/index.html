@@ -434,9 +434,81 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Configuration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Configuration
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loading-the-configuration" class="md-nav__link">
+    Loading the configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-the-configuration" class="md-nav__link">
+    Changing the configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Changing the configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temporary" class="md-nav__link">
+    Temporary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permanent" class="md-nav__link">
+    Permanent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reloading-the-configuration" class="md-nav__link">
+    Reloading the configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-reloading" class="md-nav__link">
+    Auto-reloading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -890,6 +962,62 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loading-the-configuration" class="md-nav__link">
+    Loading the configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-the-configuration" class="md-nav__link">
+    Changing the configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Changing the configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temporary" class="md-nav__link">
+    Temporary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permanent" class="md-nav__link">
+    Permanent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reloading-the-configuration" class="md-nav__link">
+    Reloading the configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-reloading" class="md-nav__link">
+    Auto-reloading
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -916,6 +1044,24 @@
 <li><a href="../../reference/">Reference</a> </li>
 <li><a href="https://raw.githubusercontent.com/kacheio/kache/main/kache.sample.yml">Sample config</a></li>
 </ul>
+<h2 id="loading-the-configuration">Loading the configuration</h2>
+<p>The configuration file is loaded when the service is started. The path to the configuration file must be specified via the <code>config.file</code> command line flag:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./kache<span class="w"> </span>-config.file<span class="o">=</span>kache.yml
+</span></code></pre></div>
+<p>While the service is running, the configuration values can be changed temporarily or permanently. Currently, only changes affecting the HTTP cache can be applied at runtime and without completely restarting the service.</p>
+<h2 id="changing-the-configuration">Changing the configuration</h2>
+<h3 id="temporary">Temporary</h3>
+<p>Before applying permanent changes, it is advisable to test the new configuration before carefully rolling it out to production. Changing configuration parameters using the <a href="../../reference/api_specification/#cache-configuration">Cache Management API</a> is an excellent way to test configuration changes before applying them permanently. Items and values that are changed in this way do not survive a restart of the service.</p>
+<h3 id="permanent">Permanent</h3>
+<p>In order to make and apply permanent changes to the service's configuration, the corresponding file that was loaded when the service was started must be edited and reloaded. Reloading the configuration can be done in two ways: either by explicit reloading, sending a SIGHUP to the running process, or by enabling automatic reloading when Kache is started.</p>
+<h2 id="reloading-the-configuration">Reloading the configuration</h2>
+<p>To apply configuration changes to the configuration file without completely restarting the running service, Kache listens for the SIGHUP signal. Sending the signal to the running process triggers the reloading of the configuration file. The new configuration is applied only if something has changed.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">kill</span><span class="w"> </span>-SIGHUP<span class="w"> </span>&lt;pid&gt;
+</span></code></pre></div>
+<h2 id="auto-reloading">Auto-reloading</h2>
+<p>It is possible to automatically reload the configuration file if it has changed. Automatic reloading can be enabled at service startup via the <code>--config.auto-reload</code> flag . If enabled, Kache will watch the specified configuration file for changes and automatically reloads if it has changed. The watch interval can be specified with the <code>--config.watch-interval=&lt;duration&gt;</code> flag, where <code>&lt;duration&gt;</code> must be a valid duration string, e.g. <code>5s</code>. If auto-reload is enabled, but no watch interval is specified, the default interval is <code>10s</code>.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./kache<span class="w"> </span>--config.file<span class="o">=</span>kache.yml<span class="w"> </span>--config.auto-reload<span class="w"> </span>--config.watch-interval<span class="o">=</span>1s
+</span></code></pre></div>
 
 
 
