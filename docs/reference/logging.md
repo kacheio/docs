@@ -33,10 +33,9 @@ To use structured file-based logging, just configure a log location.
     file: /var/log/kache/kache.log
 
     # Configure file-based logging.
-    MaxSize:    500 # 500 megabytes
-    MaxBackups: 3 
-    MaxAge:     28 # days
-    Compress:   true # disabled by default
+    max_size:    500 # 500 megabytes
+    max_backups: 3 
+    max_age:     28 # days
 
   ```
 
