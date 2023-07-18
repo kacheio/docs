@@ -15,10 +15,17 @@ For HTTP Responses:
 
 The actual storage of HTTP responses is delegated to the implementations of a caching provider. These implementations can cover different requirements such as persistence, performance, and distribution, from local RAM caches to globally distributed persistent caches. They can be fully custom caches or wrappers and adapters for local or remote open source or proprietary caches. Currently, the available cache storage implementations are In-memory and Redis. More informations and relevant configurations of caching providers can be foud [here](./provider.md).
 
-### Configuration
+## Configuration
 
-The following example configures the HTTP cache with a default TTL (time-to-live) of 1200s and activates a custom debug header (X-Header) attached to every response that is served from Kache. Debug headers are added to the request and contain information if the response was served from cache or not. They are presented in a canonical format where `x_header_name` specifies the name of the header entry with its value indicating, if it was a cache `HIT` or `MISS`.
+Kache provides several options for customizing the caching behavior. These configurations can be changed either permanently via the config file or temporarily via the cache configuration API. See the [Configuration reference](../intro/configuration.md) and [API reference](./api_specification.md#cache-configuration) for detailed explanations.
 
+### Custom headers
+
+Kache adds custom headers (X-Header) to each response that is served by Kache. These headers contain information about whether the response was delivered from the cache or not, and can be useful for debugging. 
+
+The headers are disabled by default and must be enabled in the configuration. Once enabled, debug headers are added to each response and contain information about whether the response was delivered from the cache or not. 
+
+They are presented in a canonical format, where `x_header_name` specifies the name of the corresponding header entry and its value indicating whether it is a cache `HIT` or `MISS`. If no header name is specified in the configuration, the default header name (`X-Kache`) is used.
 
 === "YAML"
   ```yaml
