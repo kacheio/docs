@@ -707,6 +707,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#expiration" class="md-nav__link">
+    Expiration
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -976,6 +983,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#expiration" class="md-nav__link">
+    Expiration
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1053,8 +1067,28 @@
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="c1"># Always set the specified default cache-control regardless if present or not.</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">force_cache_control</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>default_ttl: 1200s
-</code></pre></div>
+<h3 id="expiration">Expiration</h3>
+<p>The lifetime of a cached item is represented by its TTL (time-to-live). An item lives in cache until its TTL elapses and the cached resource expires. After that time, the item is removed from the cache. Resources within their TTL are considered fresh, while stale resources are those whose lifetime has already expired. Setting the right lifetime durations is fundamental for a healthy cache, avoids consuming valuable system resources such as cache memory and ensures that users have an optimal experience.</p>
+<p>For an HTTP cache that stores responses, the TTL can be set via <a href="#cache-control">HTTP header</a> either by the origin servers or by Kache itself. If set by the origin server, Kache respects those values. Changing or overriding these values is still possible through the configuration. If no TTLs have been set by the origin server, Kache applies default and custom TTLs per path and resource. </p>
+<p>For example, the following configuration configures the HTTP cache with a default TTL (time-to-live) of 1200s for each resource, but applies custom and finer-grained TTLs to specific paths and resources.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">YAML</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">cache</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="c1"># Default TTL in seconds.</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">default_ttl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1200s</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="c1"># Custom TTLs per path/resouce.</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">timeouts</span><span class="p">:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/news&quot;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="nt">ttl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10s&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/archive&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nt">ttl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;86400s&quot;</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^/assets/([a-z0-9].*).css&quot;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="nt">ttl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;120s&quot;</span>
+</span></code></pre></div>
 <p>```</p>
 <h2 id="reference">Reference</h2>
 <table>
@@ -1090,6 +1124,21 @@
 <td><code>force_cache_control</code></td>
 <td><code>bool</code></td>
 <td>Specifies whether to overwrite and modify an existing Cache-Control header. If set to <code>true</code>, the Cache-Control header set by the origin server will be overwritten with the value set in <code>default_cache_control</code>.</td>
+</tr>
+<tr>
+<td><code>timeouts</code></td>
+<td><code>list</code></td>
+<td>Configuration section for custom timeouts (list of TTLs per path/resource).</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td><code>string</code></td>
+<td>The path to the resource(s) the TTL is applied to. Accepts a string or a valid regex.</td>
+</tr>
+<tr>
+<td><code>ttl</code></td>
+<td><code>string</code></td>
+<td>The duration after the resource expires. Accepts a valid duration string.</td>
 </tr>
 </tbody>
 </table>
