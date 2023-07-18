@@ -714,6 +714,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ignore" class="md-nav__link">
+    Ignore
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -990,6 +997,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ignore" class="md-nav__link">
+    Ignore
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1089,7 +1103,30 @@
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^/assets/([a-z0-9].*).css&quot;</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="nt">ttl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;120s&quot;</span>
 </span></code></pre></div>
-<p>```</p>
+<h3 id="ignore">Ignore</h3>
+<p>Any resource is cached and stored as long as it is <a href="#http-cache">cacheable</a> and fresh (has not expired).</p>
+<p>To explicitly ignore certain requests and responses, Kache provides the ability to exclude those resources from being cached. This can be done either for <strong>requests</strong> with a specific path, for <strong>requests</strong> with a specific header, or for <strong>responses</strong> containing objects of a specific content type and size.</p>
+<p>For example, the following configuration specifies that requests to <code>/admin</code> are bypassed by Kache and thus excluded from caching. The same is true for requests containing a request header with key <code>X-Requested-With</code> and value <code>XMLHttpRequest</code>. In addition, responses containing javascript, css, and images with a size greater than 1MB are not cached as well. </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">YAML</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">cache</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="c1"># Exclude resources from cache.</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">exclude</span><span class="p">:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="c1"># Exclude all requests matching the specified path (regex).</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">path</span><span class="p">:</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^/admin&quot;</span><span class="w"> </span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^/.well-known/acme-challenge/(.*)&quot;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="c1"># Exclude all request with a specific header field and value.</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">header</span><span class="p">:</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="nt">x_requested_with</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;XMLHttpRequest&quot;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">      </span><span class="c1"># Don&#39;t cache responses depending on their type and size.</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">      </span><span class="nt">content</span><span class="p">:</span><span class="w"> </span><span class="c1"># applied to responses</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;text/javascript|text/css|image/.*&quot;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">          </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span><span class="w"> </span><span class="c1"># in bytes</span>
+</span></code></pre></div>
 <h2 id="reference">Reference</h2>
 <table>
 <thead>
@@ -1139,6 +1176,36 @@
 <td><code>ttl</code></td>
 <td><code>string</code></td>
 <td>The duration after the resource expires. Accepts a valid duration string.</td>
+</tr>
+<tr>
+<td><code>excluded</code></td>
+<td><code>list</code></td>
+<td>Configuration section for resources excluded from cache.</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td><code>string</code></td>
+<td>The path the TTL is applied to. Accepts a string or valid regex.</td>
+</tr>
+<tr>
+<td><code>header</code></td>
+<td><code>string</code></td>
+<td>Headers to be ignored by the cache. Header name must be specified by words separated by underscores. E.g. to match the canonical header name X-Requested-With, the corresponding value must be <code>x_requested_with</code>.</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td><code>list</code></td>
+<td>Configuration section containing the content ignored by the cache. List of type and size (size is optional).</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td>Type is the content type to be ignored by the cache. Accepts a string or a valid regex. See <a href="https://www.iana.org/assignments/media-types/media-types.xhtml">here</a> for an up-to-date and complete list of media types.</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td><code>int</code></td>
+<td>Size is the max content size in bytes. For every matching content type in <code>type</code>, resources that exceed the specified size are not cached.</td>
 </tr>
 </tbody>
 </table>
