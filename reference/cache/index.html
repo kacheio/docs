@@ -21,7 +21,7 @@
         <link rel="next" href="../provider/">
       
       <link rel="icon" href="../../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.19">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
@@ -690,12 +690,25 @@
     Configuration
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers" class="md-nav__link">
+    Custom headers
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#reference" class="md-nav__link">
     Reference
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -939,12 +952,25 @@
     Configuration
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers" class="md-nav__link">
+    Custom headers
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#reference" class="md-nav__link">
     Reference
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -980,8 +1006,12 @@
 <li>Only caches responses with following status codes:<code>200, 203, 204, 206, 300, 301, 308, 404, 405, 410, 414, 451, 501</code>.</li>
 </ul>
 <p>The actual storage of HTTP responses is delegated to the implementations of a caching provider. These implementations can cover different requirements such as persistence, performance, and distribution, from local RAM caches to globally distributed persistent caches. They can be fully custom caches or wrappers and adapters for local or remote open source or proprietary caches. Currently, the available cache storage implementations are In-memory and Redis. More informations and relevant configurations of caching providers can be foud <a href="../provider/">here</a>.</p>
-<h3 id="configuration">Configuration</h3>
-<p>The following example configures the HTTP cache with a default TTL (time-to-live) of 1200s and activates a custom debug header (X-Header) attached to every response that is served from Kache. Debug headers are added to the request and contain information if the response was served from cache or not. They are presented in a canonical format where <code>x_header_name</code> specifies the name of the header entry with its value indicating, if it was a cache <code>HIT</code> or <code>MISS</code>.</p>
+<h2 id="configuration">Configuration</h2>
+<p>Kache provides several options for customizing the caching behavior. These configurations can be changed either permanently via the config file or temporarily via the cache configuration API. See the <a href="../../intro/configuration/">Configuration reference</a> and <a href="../api_specification/#cache-configuration">API reference</a> for detailed explanations.</p>
+<h3 id="custom-headers">Custom headers</h3>
+<p>Kache adds custom headers (X-Header) to each response that is served by Kache. These headers contain information about whether the response was delivered from the cache or not, and can be useful for debugging. </p>
+<p>The headers are disabled by default and must be enabled in the configuration. Once enabled, debug headers are added to each response and contain information about whether the response was delivered from the cache or not. </p>
+<p>They are presented in a canonical format, where <code>x_header_name</code> specifies the name of the corresponding header entry and its value indicating whether it is a cache <code>HIT</code> or <code>MISS</code>. If no header name is specified in the configuration, the default header name (<code>X-Kache</code>) is used.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">YAML</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
