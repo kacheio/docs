@@ -80,6 +80,30 @@ For example, the following configuration configures the HTTP cache with a defaul
         ttl: "120s"
   ```      
 
+### Ignore
+
+Any resource is cached and stored as long as it is [cacheable](#http-cache) and fresh (has not expired).
+
+To explicitly ignore certain requests and responses, Kache provides the ability to exclude those resources from being cached. This can be done either for __requests__ with a specific path, for __requests__ with a specific header, or for __responses__ containing objects of a specific content type and size.
+
+For example, the following configuration specifies that requests to `/admin` are bypassed by Kache and thus excluded from caching. The same is true for requests containing a request header with key `X-Requested-With` and value `XMLHttpRequest`. In addition, responses containing javascript, css, and images with a size greater than 1MB are not cached as well. 
+
+=== "YAML"
+  ```yaml
+  cache:
+    # Exclude resources from cache.
+    exclude:
+        # Exclude all requests matching the specified path (regex).
+        path:
+          - "^/admin" 
+          - "^/.well-known/acme-challenge/(.*)"
+        # Exclude all request with a specific header field and value.
+        header:
+          x_requested_with: "XMLHttpRequest"
+        # Don't cache responses depending on their type and size.
+        content: # applied to responses
+          - type: "text/javascript|text/css|image/.*"
+            size: 1000000 # in bytes
   ```
 
 ## Reference
@@ -94,6 +118,12 @@ For example, the following configuration configures the HTTP cache with a defaul
 | `timeouts`                | `list`      | Configuration section for custom timeouts (list of TTLs per path/resource). |
 | `path`                    | `string`    | The path to the resource(s) the TTL is applied to. Accepts a string or a valid regex. |
 | `ttl`                     | `string`    | The duration after the resource expires. Accepts a valid duration string. |
+| `excluded`                | `list`      | Configuration section for resources excluded from cache. |
+| `path`                    | `string`    | The path the TTL is applied to. Accepts a string or valid regex. |
+| `header`                  | `string`    | Headers to be ignored by the cache. Header name must be specified by words separated by underscores. E.g. to match the canonical header name X-Requested-With, the corresponding value must be `x_requested_with`. |
+| `content`                 | `list`      | Configuration section containing the content ignored by the cache. List of type and size (size is optional). |
+| `type`                    | `string`    | Type is the content type to be ignored by the cache. Accepts a string or a valid regex. See [here](https://www.iana.org/assignments/media-types/media-types.xhtml) for an up-to-date and complete list of media types. |
+| `size`                    | `int`       | Size is the max content size in bytes. For every matching content type in `type`, resources that exceed the specified size are not cached. |
 
 [^1]:
     [RFC7234 -- HTTP Caching](https://httpwg.org/specs/rfc7234)
