@@ -56,7 +56,29 @@ For example, the following configuration sets a custom Cache-Control header fiel
     force_cache_control: true
   ```
 
+### Expiration
+
+The lifetime of a cached item is represented by its TTL (time-to-live). An item lives in cache until its TTL elapses and the cached resource expires. After that time, the item is removed from the cache. Resources within their TTL are considered fresh, while stale resources are those whose lifetime has already expired. Setting the right lifetime durations is fundamental for a healthy cache, avoids consuming valuable system resources such as cache memory and ensures that users have an optimal experience.
+
+For an HTTP cache that stores responses, the TTL can be set via [HTTP header](#cache-control) either by the origin servers or by Kache itself. If set by the origin server, Kache respects those values. Changing or overriding these values is still possible through the configuration. If no TTLs have been set by the origin server, Kache applies default and custom TTLs per path and resource. 
+
+For example, the following configuration configures the HTTP cache with a default TTL (time-to-live) of 1200s for each resource, but applies custom and finer-grained TTLs to specific paths and resources.
+
+=== "YAML"
+  ```yaml
+  cache:
+    # Default TTL in seconds.
     default_ttl: 1200s
+
+    # Custom TTLs per path/resouce.
+    timeouts:
+      - path: "/news"
+        ttl: "10s"
+      - path: "/archive"
+        ttl: "86400s"
+      - path: "^/assets/([a-z0-9].*).css"
+        ttl: "120s"
+  ```      
 
   ```
 
@@ -69,6 +91,9 @@ For example, the following configuration sets a custom Cache-Control header fiel
 | `default_ttl`             | `string`    | Is the default TTL (time-to-live) for cached items. The value is a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "1.5h", or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". TTL must be greater than 0. |
 | `default_cache_control`   | `string`    | Specifies a custom Cache-Control header. If configured, the custom Cache-Control header is added to each response that does not contain a valid Cache-Control header. The value must be a valid directive according to the corresponding [RFC specification](https://httpwg.org/specs/rfc7234#header.cache-control).  |
 | `force_cache_control`     | `bool`      | Specifies whether to overwrite and modify an existing Cache-Control header. If set to `true`, the Cache-Control header set by the origin server will be overwritten with the value set in `default_cache_control`. |
+| `timeouts`                | `list`      | Configuration section for custom timeouts (list of TTLs per path/resource). |
+| `path`                    | `string`    | The path to the resource(s) the TTL is applied to. Accepts a string or a valid regex. |
+| `ttl`                     | `string`    | The duration after the resource expires. Accepts a valid duration string. |
 
 [^1]:
     [RFC7234 -- HTTP Caching](https://httpwg.org/specs/rfc7234)
