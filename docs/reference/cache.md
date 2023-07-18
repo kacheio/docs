@@ -34,20 +34,41 @@ They are presented in a canonical format, where `x_header_name` specifies the na
     x_header: true
     # Set debug header name to 'X-Kache'.
     x_header_name: x-kache
-    # Set default ttl for single items.
+  ```
+
+
+### Cache-Control
+
+The HTTP header field Cache-Control contains directives (instructions) – both in requests and responses – that control caching in browsers and shared caches (e.g. proxies). The Cache-Control header specifies directives that must be followed by all caching mechanisms. 
+
+Kache fully implements the latest RFC specification[^1] and respects these directives when caching responses to requests. However, in some cases it is desirable to customize directives sent by backends, or to add directives for responses that do not include a Cache-Control header at all. Therefore, Kache allows setting or modifying the Cache-Control header field of such upstream responses. It is, however, advisable to not change the Cache-Control values set by backend servers and to do so only when necessary, as this could lead to undesirable side effects.
+
+If `default_cache_control_header` is specified in the configuration, a Cache-Control header with the corresponding value will be added to any response that does not contain a Cache-Control header. If the backend sets a header, overriding it with the configured default header can be enforce via the `force_cache_control` directive.
+
+For example, the following configuration sets a custom Cache-Control header field with a `max-age` of 2 minutes (or 120 seconds) on each incoming upstream response and defines for how long the resource is cachable. Note that `max-age` is a relative time defined in seconds. If the upstream response already contains a Cache-Control header, it will be overwritten due to `force_cache_control` set to `true`.
+
+=== "YAML"
+  ```yaml
+  cache:
+    # Set default cache-control header if missing or enforced to update.
+    default_cache_control: "max-age=120"
+    # Always set the specified default cache-control regardless if present or not.
+    force_cache_control: true
+  ```
+
     default_ttl: 1200s
 
   ```
 
-### Reference
+## Reference
 
-| Directive         | Type      | Description |
-|------------------ |---------- |------------ |
-| `x_header`        | `bool`    | Activates the X-Cache debug header. If set to `true`, Kache will add a HTTP response header to each response indicating if it was served from cache or not (cache hit or miss). |
-| `x_header_name`   | `string`  | Specifies the name of the X-Cache debug header. For example, if set to `x-kache` and in case of a cache hit, the response will contain an additional HTTP header with `X-Kache` as key and `HIT` as value. Default is 'X-Kache'. |
-| `default_ttl`     | `string`  | Is the default TTL (time-to-live) for cached items. The value is a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "1.5h", or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". TTL must be greater than 0. |
-
-
+| Directive                 | Type        | Description |
+|-------------------------- |------------ |------------ |
+| `x_header`                | `bool`      | Activates the X-Cache debug header. If set to `true`, Kache will add a HTTP response header to each response indicating if it was served from cache or not (cache hit or miss). |
+| `x_header_name`           | `string`    | Specifies the name of the X-Cache debug header. For example, if set to `x-kache` and in case of a cache hit, the response will contain an additional HTTP header with `X-Kache` as key and `HIT` as value. Default is 'X-Kache'. |
+| `default_ttl`             | `string`    | Is the default TTL (time-to-live) for cached items. The value is a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "1.5h", or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". TTL must be greater than 0. |
+| `default_cache_control`   | `string`    | Specifies a custom Cache-Control header. If configured, the custom Cache-Control header is added to each response that does not contain a valid Cache-Control header. The value must be a valid directive according to the corresponding [RFC specification](https://httpwg.org/specs/rfc7234#header.cache-control).  |
+| `force_cache_control`     | `bool`      | Specifies whether to overwrite and modify an existing Cache-Control header. If set to `true`, the Cache-Control header set by the origin server will be overwritten with the value set in `default_cache_control`. |
 
 [^1]:
     [RFC7234 -- HTTP Caching](https://httpwg.org/specs/rfc7234)
