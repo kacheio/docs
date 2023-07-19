@@ -17,7 +17,7 @@ The actual storage of HTTP responses is delegated to the implementations of a ca
 
 ## Configuration
 
-Kache provides several options for customizing the caching behavior. These configurations can be changed either permanently via the config file or temporarily via the cache configuration API. See the [Configuration reference](../intro/configuration.md) and [API reference](./api_specification.md#cache-configuration) for detailed explanations.
+Kache provides several options for customizing the caching behavior. These configurations can be changed either permanently via the configuration file or temporarily via the configuration API. See the [Configuration reference](../intro/configuration.md) and [API reference](./api_specification.md#cache-configuration) for detailed explanations.
 
 ### Custom headers
 
@@ -43,7 +43,7 @@ The HTTP header field Cache-Control contains directives (instructions) – both 
 
 Kache fully implements the latest RFC specification[^1] and respects these directives when caching responses to requests. However, in some cases it is desirable to customize directives sent by backends, or to add directives for responses that do not include a Cache-Control header at all. Therefore, Kache allows setting or modifying the Cache-Control header field of such upstream responses. It is, however, advisable to not change the Cache-Control values set by backend servers and to do so only when necessary, as this could lead to undesirable side effects.
 
-If `default_cache_control_header` is specified in the configuration, a Cache-Control header with the corresponding value will be added to any response that does not contain a Cache-Control header. If the backend sets a header, overriding it with the configured default header can be enforce via the `force_cache_control` directive.
+If `default_cache_control_header` is specified in the configuration, a Cache-Control header with the corresponding value will be added to any response that does not contain a Cache-Control header. If the backend sets a header, overriding it with the configured default header can be enforced via the `force_cache_control` directive.
 
 For example, the following configuration sets a custom Cache-Control header field with a `max-age` of 2 minutes (or 120 seconds) on each incoming upstream response and defines for how long the resource is cachable. Note that `max-age` is a relative time defined in seconds. If the upstream response already contains a Cache-Control header, it will be overwritten due to `force_cache_control` set to `true`.
 
@@ -58,11 +58,11 @@ For example, the following configuration sets a custom Cache-Control header fiel
 
 ### Expiration
 
-The lifetime of a cached item is represented by its TTL (time-to-live). An item lives in cache until its TTL elapses and the cached resource expires. After that time, the item is removed from the cache. Resources within their TTL are considered fresh, while stale resources are those whose lifetime has already expired. Setting the right lifetime durations is fundamental for a healthy cache, avoids consuming valuable system resources such as cache memory and ensures that users have an optimal experience.
+The lifetime of a cached item is represented by its TTL (time-to-live). An item lives in the cache until its TTL elapses and the cached resource expires. After that time, the item is removed from the cache. Resources within their TTL are considered fresh, while stale resources are those whose lifetime has already expired. Setting the right lifetime durations is fundamental for a healthy cache, avoids consuming valuable system resources such as cache memory, and ensures that users have an optimal experience.
 
-For an HTTP cache that stores responses, the TTL can be set via [HTTP header](#cache-control) either by the origin servers or by Kache itself. If set by the origin server, Kache respects those values. Changing or overriding these values is still possible through the configuration. If no TTLs have been set by the origin server, Kache applies default and custom TTLs per path and resource. 
+For a HTTP cache that stores responses, the TTL can be set via [HTTP header](#cache-control) either by the origin servers or by Kache itself. If set by the origin server, Kache respects those values. Changing or overriding those values is still possible through the configuration. If no TTLs have been set by the origin server, Kache applies default and custom TTLs that can be defined per path and resource. 
 
-For example, the following configuration configures the HTTP cache with a default TTL (time-to-live) of 1200s for each resource, but applies custom and finer-grained TTLs to specific paths and resources.
+For example, the following configuration configures the HTTP cache with a default TTL (time-to-live) of 1200s for each resource, but applies custom and more fine-grained TTLs to specific paths and resources.
 
 === "YAML"
   ```yaml
@@ -115,15 +115,15 @@ For example, the following configuration specifies that requests to `/admin` are
 | `default_ttl`             | `string`    | Is the default TTL (time-to-live) for cached items. The value is a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "1.5h", or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". TTL must be greater than 0. |
 | `default_cache_control`   | `string`    | Specifies a custom Cache-Control header. If configured, the custom Cache-Control header is added to each response that does not contain a valid Cache-Control header. The value must be a valid directive according to the corresponding [RFC specification](https://httpwg.org/specs/rfc7234#header.cache-control).  |
 | `force_cache_control`     | `bool`      | Specifies whether to overwrite and modify an existing Cache-Control header. If set to `true`, the Cache-Control header set by the origin server will be overwritten with the value set in `default_cache_control`. |
-| `timeouts`                | `list`      | Configuration section for custom timeouts (list of TTLs per path/resource). |
-| `path`                    | `string`    | The path to the resource(s) the TTL is applied to. Accepts a string or a valid regex. |
-| `ttl`                     | `string`    | The duration after the resource expires. Accepts a valid duration string. |
+| `timeouts`                | `list`      | Configuration section for custom timeouts (list of TTLs per path). |
+| `path`                    | `string`    | The path to the resource the TTL is applied to. Accepts a string or a valid regex. |
+| `ttl`                     | `string`    | The duration after the specified resource expires. Accepts a valid duration string. |
 | `excluded`                | `list`      | Configuration section for resources excluded from cache. |
-| `path`                    | `string`    | The path the TTL is applied to. Accepts a string or valid regex. |
-| `header`                  | `string`    | Headers to be ignored by the cache. Header name must be specified by words separated by underscores. E.g. to match the canonical header name X-Requested-With, the corresponding value must be `x_requested_with`. |
+| `path`                    | `string`    | The request path that will be ignored. Accepts a string or a valid regex. |
+| `header`                  | `string`    | Headers to be ignored by the cache. Header names must be specified in [snake case](https://en.wikipedia.org/wiki/Snake_case) which is then resolved to a canonical format. E.g. to match the canonical header name X-Requested-With, the corresponding value in the configuration must be `x_requested_with`. |
 | `content`                 | `list`      | Configuration section containing the content ignored by the cache. List of type and size (size is optional). |
 | `type`                    | `string`    | Type is the content type to be ignored by the cache. Accepts a string or a valid regex. See [here](https://www.iana.org/assignments/media-types/media-types.xhtml) for an up-to-date and complete list of media types. |
-| `size`                    | `int`       | Size is the max content size in bytes. For every matching content type in `type`, resources that exceed the specified size are not cached. |
+| `size`                    | `int`       | Size is the max content size in bytes. For the every corresponding matching content type in `type`, resources that exceed the specified size are not cached. |
 
 [^1]:
     [RFC7234 -- HTTP Caching](https://httpwg.org/specs/rfc7234)
