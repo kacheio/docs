@@ -120,7 +120,7 @@ For example, the following configuration specifies that requests to `/admin` are
 | `ttl`                     | `string`    | The duration after the specified resource expires. Accepts a valid duration string. |
 | `excluded`                | `list`      | Configuration section for resources excluded from cache. |
 | `path`                    | `string`    | The request path that will be ignored. Accepts a string or a valid regex. |
-| `header`                  | `string`    | Headers to be ignored by the cache. Header names must be specified in [snake case](https://en.wikipedia.org/wiki/Snake_case) which is then resolved to a canonical format. E.g. to match the canonical header name X-Requested-With, the corresponding value in the configuration must be `x_requested_with`. |
+| `header`                  | `string`    | Headers to be ignored by the cache. Header names must be specified in [snake case](https://en.wikipedia.org/wiki/Snake_case) format which is then resolved to a canonical format. E.g. to match the canonical header name X-Requested-With, the corresponding value in the configuration must be `x_requested_with`. |
 | `content`                 | `list`      | Configuration section containing the content ignored by the cache. List of type and size (size is optional). |
 | `type`                    | `string`    | Type is the content type to be ignored by the cache. Accepts a string or a valid regex. See [here](https://www.iana.org/assignments/media-types/media-types.xhtml) for an up-to-date and complete list of media types. |
 | `size`                    | `int`       | Size is the max content size in bytes. For the every corresponding matching content type in `type`, resources that exceed the specified size are not cached. |
