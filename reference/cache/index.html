@@ -1049,7 +1049,7 @@
 </ul>
 <p>The actual storage of HTTP responses is delegated to the implementations of a caching provider. These implementations can cover different requirements such as persistence, performance, and distribution, from local RAM caches to globally distributed persistent caches. They can be fully custom caches or wrappers and adapters for local or remote open source or proprietary caches. Currently, the available cache storage implementations are In-memory and Redis. More informations and relevant configurations of caching providers can be foud <a href="../provider/">here</a>.</p>
 <h2 id="configuration">Configuration</h2>
-<p>Kache provides several options for customizing the caching behavior. These configurations can be changed either permanently via the config file or temporarily via the cache configuration API. See the <a href="../../intro/configuration/">Configuration reference</a> and <a href="../api_specification/#cache-configuration">API reference</a> for detailed explanations.</p>
+<p>Kache provides several options for customizing the caching behavior. These configurations can be changed either permanently via the configuration file or temporarily via the configuration API. See the <a href="../../intro/configuration/">Configuration reference</a> and <a href="../api_specification/#cache-configuration">API reference</a> for detailed explanations.</p>
 <h3 id="custom-headers">Custom headers</h3>
 <p>Kache adds custom headers (X-Header) to each response that is served by Kache. These headers contain information about whether the response was delivered from the cache or not, and can be useful for debugging. </p>
 <p>The headers are disabled by default and must be enabled in the configuration. Once enabled, debug headers are added to each response and contain information about whether the response was delivered from the cache or not. </p>
@@ -1068,7 +1068,7 @@
 <h3 id="cache-control">Cache-Control</h3>
 <p>The HTTP header field Cache-Control contains directives (instructions) – both in requests and responses – that control caching in browsers and shared caches (e.g. proxies). The Cache-Control header specifies directives that must be followed by all caching mechanisms. </p>
 <p>Kache fully implements the latest RFC specification<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> and respects these directives when caching responses to requests. However, in some cases it is desirable to customize directives sent by backends, or to add directives for responses that do not include a Cache-Control header at all. Therefore, Kache allows setting or modifying the Cache-Control header field of such upstream responses. It is, however, advisable to not change the Cache-Control values set by backend servers and to do so only when necessary, as this could lead to undesirable side effects.</p>
-<p>If <code>default_cache_control_header</code> is specified in the configuration, a Cache-Control header with the corresponding value will be added to any response that does not contain a Cache-Control header. If the backend sets a header, overriding it with the configured default header can be enforce via the <code>force_cache_control</code> directive.</p>
+<p>If <code>default_cache_control_header</code> is specified in the configuration, a Cache-Control header with the corresponding value will be added to any response that does not contain a Cache-Control header. If the backend sets a header, overriding it with the configured default header can be enforced via the <code>force_cache_control</code> directive.</p>
 <p>For example, the following configuration sets a custom Cache-Control header field with a <code>max-age</code> of 2 minutes (or 120 seconds) on each incoming upstream response and defines for how long the resource is cachable. Note that <code>max-age</code> is a relative time defined in seconds. If the upstream response already contains a Cache-Control header, it will be overwritten due to <code>force_cache_control</code> set to <code>true</code>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">YAML</label></div>
 <div class="tabbed-content">
@@ -1082,9 +1082,9 @@
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">force_cache_control</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span></code></pre></div>
 <h3 id="expiration">Expiration</h3>
-<p>The lifetime of a cached item is represented by its TTL (time-to-live). An item lives in cache until its TTL elapses and the cached resource expires. After that time, the item is removed from the cache. Resources within their TTL are considered fresh, while stale resources are those whose lifetime has already expired. Setting the right lifetime durations is fundamental for a healthy cache, avoids consuming valuable system resources such as cache memory and ensures that users have an optimal experience.</p>
-<p>For an HTTP cache that stores responses, the TTL can be set via <a href="#cache-control">HTTP header</a> either by the origin servers or by Kache itself. If set by the origin server, Kache respects those values. Changing or overriding these values is still possible through the configuration. If no TTLs have been set by the origin server, Kache applies default and custom TTLs per path and resource. </p>
-<p>For example, the following configuration configures the HTTP cache with a default TTL (time-to-live) of 1200s for each resource, but applies custom and finer-grained TTLs to specific paths and resources.</p>
+<p>The lifetime of a cached item is represented by its TTL (time-to-live). An item lives in the cache until its TTL elapses and the cached resource expires. After that time, the item is removed from the cache. Resources within their TTL are considered fresh, while stale resources are those whose lifetime has already expired. Setting the right lifetime durations is fundamental for a healthy cache, avoids consuming valuable system resources such as cache memory, and ensures that users have an optimal experience.</p>
+<p>For a HTTP cache that stores responses, the TTL can be set via <a href="#cache-control">HTTP header</a> either by the origin servers or by Kache itself. If set by the origin server, Kache respects those values. Changing or overriding those values is still possible through the configuration. If no TTLs have been set by the origin server, Kache applies default and custom TTLs that can be defined per path and resource. </p>
+<p>For example, the following configuration configures the HTTP cache with a default TTL (time-to-live) of 1200s for each resource, but applies custom and more fine-grained TTLs to specific paths and resources.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">YAML</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
@@ -1165,17 +1165,17 @@
 <tr>
 <td><code>timeouts</code></td>
 <td><code>list</code></td>
-<td>Configuration section for custom timeouts (list of TTLs per path/resource).</td>
+<td>Configuration section for custom timeouts (list of TTLs per path).</td>
 </tr>
 <tr>
 <td><code>path</code></td>
 <td><code>string</code></td>
-<td>The path to the resource(s) the TTL is applied to. Accepts a string or a valid regex.</td>
+<td>The path to the resource the TTL is applied to. Accepts a string or a valid regex.</td>
 </tr>
 <tr>
 <td><code>ttl</code></td>
 <td><code>string</code></td>
-<td>The duration after the resource expires. Accepts a valid duration string.</td>
+<td>The duration after the specified resource expires. Accepts a valid duration string.</td>
 </tr>
 <tr>
 <td><code>excluded</code></td>
@@ -1185,12 +1185,12 @@
 <tr>
 <td><code>path</code></td>
 <td><code>string</code></td>
-<td>The path the TTL is applied to. Accepts a string or valid regex.</td>
+<td>The request path that will be ignored. Accepts a string or a valid regex.</td>
 </tr>
 <tr>
 <td><code>header</code></td>
 <td><code>string</code></td>
-<td>Headers to be ignored by the cache. Header name must be specified by words separated by underscores. E.g. to match the canonical header name X-Requested-With, the corresponding value must be <code>x_requested_with</code>.</td>
+<td>Headers to be ignored by the cache. Header names must be specified in <a href="https://en.wikipedia.org/wiki/Snake_case">snake case</a> format which is then resolved to a canonical format. E.g. to match the canonical header name X-Requested-With, the corresponding value in the configuration must be <code>x_requested_with</code>.</td>
 </tr>
 <tr>
 <td><code>content</code></td>
@@ -1205,7 +1205,7 @@
 <tr>
 <td><code>size</code></td>
 <td><code>int</code></td>
-<td>Size is the max content size in bytes. For every matching content type in <code>type</code>, resources that exceed the specified size are not cached.</td>
+<td>Size is the max content size in bytes. For the every corresponding matching content type in <code>type</code>, resources that exceed the specified size are not cached.</td>
 </tr>
 </tbody>
 </table>
