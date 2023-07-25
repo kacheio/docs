@@ -721,6 +721,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#mode" class="md-nav__link">
+    Mode
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1004,6 +1011,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#mode" class="md-nav__link">
+    Mode
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1127,6 +1141,8 @@
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;text/javascript|text/css|image/.*&quot;</span>
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">          </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span><span class="w"> </span><span class="c1"># in bytes</span>
 </span></code></pre></div>
+<h3 id="mode">Mode</h3>
+<p>Kache can be operated with two different cache modes, which directly influence the caching behavior. The default cache mode is <code>strict</code>. In this mode, HTTP cache respects the directives set in the Cache-Control header and automatically takes care of the lifetime of cached items and their proper validation with the origin once they become stale or are no longer considered fresh. If disabled with <code>strict: false</code> (caceh mode all), the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires. The corresponding TTLs must be specified by <code>default_ttl</code> and <code>timeouts</code>, respectively, as further described <a href="#expiration">here</a>.</p>
 <h2 id="reference">Reference</h2>
 <table>
 <thead>
@@ -1146,6 +1162,11 @@
 <td><code>x_header_name</code></td>
 <td><code>string</code></td>
 <td>Specifies the name of the X-Cache debug header. For example, if set to <code>x-kache</code> and in case of a cache hit, the response will contain an additional HTTP header with <code>X-Kache</code> as key and <code>HIT</code> as value. Default is 'X-Kache'.</td>
+</tr>
+<tr>
+<td><code>strict</code></td>
+<td><code>bool</code></td>
+<td>Toggles the cache mode. Default is strict (<code>strict: true</code>). When set to <code>false</code>, the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires.</td>
 </tr>
 <tr>
 <td><code>default_ttl</code></td>
