@@ -78,7 +78,7 @@ For example, the following configuration configures the HTTP cache with a defaul
         ttl: "86400s"
       - path: "^/assets/([a-z0-9].*).css"
         ttl: "120s"
-  ```      
+  ```     
 
 ### Ignore
 
@@ -106,12 +106,18 @@ For example, the following configuration specifies that requests to `/admin` are
             size: 1000000 # in bytes
   ```
 
+### Mode 
+
+Kache can be operated with two different cache modes, which directly influence the caching behavior. The default cache mode is `strict`. In this mode, HTTP cache respects the directives set in the Cache-Control header and automatically takes care of the lifetime of cached items and their proper validation with the origin once they become stale or are no longer considered fresh. If disabled with `strict: false` (caceh mode all), the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires. The corresponding TTLs must be specified by `default_ttl` and `timeouts`, respectively, as further described [here](#expiration).
+
+
 ## Reference
 
 | Directive                 | Type        | Description |
 |-------------------------- |------------ |------------ |
 | `x_header`                | `bool`      | Activates the X-Cache debug header. If set to `true`, Kache will add a HTTP response header to each response indicating if it was served from cache or not (cache hit or miss). |
 | `x_header_name`           | `string`    | Specifies the name of the X-Cache debug header. For example, if set to `x-kache` and in case of a cache hit, the response will contain an additional HTTP header with `X-Kache` as key and `HIT` as value. Default is 'X-Kache'. |
+| `strict`                  | `bool`      | Toggles the cache mode. Default is strict (`strict: true`). When set to `false`, the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires. |
 | `default_ttl`             | `string`    | Is the default TTL (time-to-live) for cached items. The value is a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "1.5h", or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". TTL must be greater than 0. |
 | `default_cache_control`   | `string`    | Specifies a custom Cache-Control header. If configured, the custom Cache-Control header is added to each response that does not contain a valid Cache-Control header. The value must be a valid directive according to the corresponding [RFC specification](https://httpwg.org/specs/rfc7234#header.cache-control).  |
 | `force_cache_control`     | `bool`      | Specifies whether to overwrite and modify an existing Cache-Control header. If set to `true`, the Cache-Control header set by the origin server will be overwritten with the value set in `default_cache_control`. |
