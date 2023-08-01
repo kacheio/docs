@@ -111,6 +111,7 @@ nav: # Page tree.
       - reference/targets.md
       - Cache: reference/cache.md
       - reference/provider.md
+      - reference/cluster.md
       - reference/logging.md
       - reference/api.md
       - Configuration:
