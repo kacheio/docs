@@ -4,7 +4,7 @@ The following describes how to run kache locally with Docker.
 
 ### Set up a docker-compose
 
-Create and define a [docker-compose.yml](https://github.com/kacheio/kache/blob/main/cloud/docker/docker-compose.yml) and define a kache service that uses the official [Kache image](https://hub.docker.com/r/kacheio/kache):
+Create and define a [docker-compose.yml](https://github.com/kacheio/kache/blob/main/deploy/docker/docker-compose.yml) and define a kache service that uses the official [Kache image](https://hub.docker.com/r/kacheio/kache):
 
 ``` yaml
 services:
@@ -41,7 +41,7 @@ That's all you need to run Kache with Redis as a distributed caching backend.
 Now start Kache with the following command:
 
 ```
-docker-compose -f cloud/docker/docker-compose.yml up 
+docker-compose -f deploy/docker/docker-compose.yml up 
 ```
 
 ### Access kache

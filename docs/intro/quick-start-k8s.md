@@ -18,13 +18,13 @@ minikube start
 Create a ConfigMap that contains the kache configuration:
 
 ``` sh
-kubectl create configmap kache-config --from-file=cloud/kubernetes/configmap.yml 
+kubectl create configmap kache-config --from-file=deploy/kubernetes/configmap.yml 
 ```
 
 Apply the ConfigMap:
 
 ``` sh
-kubectl apply -f cloud/kubernetes/configmap.yml
+kubectl apply -f deploy/kubernetes/configmap.yml
 ```
 
 ??? abstract "configmap.yml"
@@ -65,7 +65,7 @@ kubectl apply -f cloud/kubernetes/configmap.yml
 ### Deploy Redis
 
 ``` sh
-kubectl apply -f cloud/kubernetes/redis-master.yml
+kubectl apply -f deploy/kubernetes/redis-master.yml
 ```
 
 ??? abstract "redis.yml"
@@ -123,7 +123,7 @@ kubectl apply -f cloud/kubernetes/redis-master.yml
 ### Deploy Kache
 
 ``` sh
-kubectl apply -f cloud/kubernetes/kache.yml
+kubectl apply -f deploy/kubernetes/kache.yml
 ```
 
 ??? abstract "kache.yml"
