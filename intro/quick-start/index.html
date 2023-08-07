@@ -21,7 +21,7 @@
         <link rel="next" href="../quick-start-k8s/">
       
       <link rel="icon" href="../../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.1, mkdocs-material-9.1.21">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
@@ -999,7 +999,7 @@
 <h1 id="quick-start">Quick Start</h1>
 <p>The following describes how to run kache locally with Docker.</p>
 <h3 id="set-up-a-docker-compose">Set up a docker-compose</h3>
-<p>Create and define a <a href="https://github.com/kacheio/kache/blob/main/cloud/docker/docker-compose.yml">docker-compose.yml</a> and define a kache service that uses the official <a href="https://hub.docker.com/r/kacheio/kache">Kache image</a>:</p>
+<p>Create and define a <a href="https://github.com/kacheio/kache/blob/main/deploy/docker/docker-compose.yml">docker-compose.yml</a> and define a kache service that uses the official <a href="https://hub.docker.com/r/kacheio/kache">Kache image</a>:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">services</span><span class="p">:</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">kache</span><span class="p">:</span>
@@ -1027,7 +1027,7 @@
 <p>That's all you need to run Kache with Redis as a distributed caching backend. </p>
 <h3 id="run-kache">Run kache</h3>
 <p>Now start Kache with the following command:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker-compose -f cloud/docker/docker-compose.yml up 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker-compose -f deploy/docker/docker-compose.yml up 
 </span></code></pre></div>
 <h3 id="access-kache">Access kache</h3>
 <p>You can now access the service under <code>http://localhost:8080/</code> and the API under <code>http://localhost:1338/api/cache/keys</code> which, for example, returns all the keys currently in the cache.</p>
