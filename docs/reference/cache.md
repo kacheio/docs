@@ -108,8 +108,16 @@ For example, the following configuration specifies that requests to `/admin` are
 
 ### Mode 
 
-Kache can be operated with two different cache modes, which directly influence the caching behavior. The default cache mode is `strict`. In this mode, HTTP cache respects the directives set in the Cache-Control header and automatically takes care of the lifetime of cached items and their proper validation with the origin once they become stale or are no longer considered fresh. If disabled with `strict: false` (caceh mode all), the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires. The corresponding TTLs must be specified by `default_ttl` and `timeouts`, respectively, as further described [here](#expiration).
+Kache can be operated with two different cache modes, which directly influence the caching behavior. The default cache mode is `strict`. In this mode, HTTP cache respects the directives set in the Cache-Control header and automatically takes care of the lifetime of cached items and their proper validation with the origin once they become stale or are no longer considered fresh. If disabled with `strict: false` (cache mode all), the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires. The corresponding TTLs __must__ be specified by `default_ttl` and `timeouts`, respectively, as further described [here](#expiration).
 
+
+=== "YAML"
+  ```yaml
+  cache:
+    # Disable strict cache mode.
+    strict: false 
+    # ...
+  ```
 
 ## Reference
 
