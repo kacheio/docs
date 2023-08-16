@@ -1158,7 +1158,17 @@
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">          </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span><span class="w"> </span><span class="c1"># in bytes</span>
 </span></code></pre></div>
 <h3 id="mode">Mode</h3>
-<p>Kache can be operated with two different cache modes, which directly influence the caching behavior. The default cache mode is <code>strict</code>. In this mode, HTTP cache respects the directives set in the Cache-Control header and automatically takes care of the lifetime of cached items and their proper validation with the origin once they become stale or are no longer considered fresh. If disabled with <code>strict: false</code> (caceh mode all), the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires. The corresponding TTLs must be specified by <code>default_ttl</code> and <code>timeouts</code>, respectively, as further described <a href="#expiration">here</a>.</p>
+<p>Kache can be operated with two different cache modes, which directly influence the caching behavior. The default cache mode is <code>strict</code>. In this mode, HTTP cache respects the directives set in the Cache-Control header and automatically takes care of the lifetime of cached items and their proper validation with the origin once they become stale or are no longer considered fresh. If disabled with <code>strict: false</code> (cache mode all), the HTTP cache ignores the Cache-Control directives, skips any valdation based on the cache control header, and stores each response until its TTL (time-to-live) expires. The corresponding TTLs <strong>must</strong> be specified by <code>default_ttl</code> and <code>timeouts</code>, respectively, as further described <a href="#expiration">here</a>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">YAML</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">cache</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="c1"># Disable strict cache mode.</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">strict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="c1"># ...</span>
+</span></code></pre></div>
 <h2 id="reference">Reference</h2>
 <table>
 <thead>
