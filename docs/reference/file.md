@@ -6,7 +6,7 @@
     web1:
       addr: :80
     web2:
-      addr: :3129
+      addr: :3128
 
   upstreams:
     - name: service1
