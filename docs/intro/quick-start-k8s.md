@@ -40,7 +40,7 @@ kubectl apply -f deploy/kubernetes/configmap.yml
         web1:
             addr: :80
         web2:
-            addr: :3129
+            addr: :3128
         upstreams:
         - name: service1
             addr: "http://localhost:8000"
@@ -188,7 +188,7 @@ kubectl apply -f deploy/kubernetes/kache.yml
         port: 80
         targetPort: http
         - name: "web"
-        port: 3129
+        port: 3128
         targetPort: web
         - name: "api"
         port: 6067
@@ -215,7 +215,7 @@ The Kache service is exposed as a LoadBalancer via the service with mapped ports
 $ kubectl get svc
 
 NAME            TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)                                      AGE
-kache-service   LoadBalancer   10.110.92.73   localhost     80:30135/TCP,3129:32284/TCP,6067:30691/TCP   44h
+kache-service   LoadBalancer   10.110.92.73   localhost     80:30135/TCP,3128:32284/TCP,6067:30691/TCP   44h
 kubernetes      ClusterIP      10.96.0.1      <none>        443/TCP                                      44h
 redis-master    ClusterIP      10.97.188.34   <none>        6379/TCP                                     44h
 ```
@@ -223,7 +223,7 @@ redis-master    ClusterIP      10.97.188.34   <none>        6379/TCP            
 Use the above endpoints to access the service:
 
 ``` sh
-curl http://127.0.0.1:3129/
+curl http://127.0.0.1:3128/
 ```
 
 Access the API:
