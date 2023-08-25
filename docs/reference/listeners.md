@@ -6,7 +6,7 @@ A listener is configured with a unique name and a network adress. The address de
 
 ### Configuration
 
-For example, the following configuration exposes two named listeners, `web1` and `web2` listening on ports `:80` and `:3129`, respectively.
+For example, the following configuration exposes two named listeners, `web1` and `web2` listening on ports `:80` and `:3128`, respectively.
 
 === "YAML"
   ```yaml
@@ -17,7 +17,7 @@ For example, the following configuration exposes two named listeners, `web1` and
 
     # Listener 2 named web2
     web2:
-      addr: :3129
+      addr: :3128
   ```
 
 After the listeners are up and running, kache accepts connections and forwards them to defined upstream targets.
