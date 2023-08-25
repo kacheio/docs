@@ -68,7 +68,7 @@ The following example configures a remote cache that is layered by a local in-me
         # Activate layered caching strategy.
         layered: true
 
-        // Configure remote redis cache (layer 2).
+        # Configure remote redis cache (layer 2).
         redis:
             endpoint: "redis:6379"
             username:
@@ -78,7 +78,7 @@ The following example configures a remote cache that is layered by a local in-me
             max_queue_concurrency: 56
             max_queue_buffer_size: 24000
 
-        // Configure local inmemory cache (layer 1).
+        # Configure local inmemory cache (layer 1).
         inmemory:
             max_size: 1000000000
             max_item_size: 50000000
