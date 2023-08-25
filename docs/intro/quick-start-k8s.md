@@ -40,7 +40,7 @@ kubectl apply -f deploy/kubernetes/configmap.yml
         web1:
             addr: :80
         web2:
-            addr: :1337
+            addr: :3129
         upstreams:
         - name: service1
             addr: "http://localhost:8000"
@@ -49,7 +49,7 @@ kubectl apply -f deploy/kubernetes/configmap.yml
             addr: "http://example.com"
             path: "/"
         api:
-        port: 1338
+        port: 6067
         debug: true
         logging:
         level: debug
@@ -159,11 +159,11 @@ kubectl apply -f deploy/kubernetes/kache.yml
                 - name: config
                 mountPath: /etc/kache
             ports:
-                - containerPort: 8080
+                - containerPort: 80
                 name: http
-                - containerPort: 1337
+                - containerPort: 3219
                 name: web
-                - containerPort: 1338
+                - containerPort: 6067
                 name: api
             resources:
                 requests:
@@ -188,10 +188,10 @@ kubectl apply -f deploy/kubernetes/kache.yml
         port: 80
         targetPort: http
         - name: "web"
-        port: 1337
+        port: 3129
         targetPort: web
         - name: "api"
-        port: 1338
+        port: 6067
         targetPort: api
     selector:
         app: kache
@@ -215,7 +215,7 @@ The Kache service is exposed as a LoadBalancer via the service with mapped ports
 $ kubectl get svc
 
 NAME            TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)                                      AGE
-kache-service   LoadBalancer   10.110.92.73   localhost     80:30135/TCP,1337:32284/TCP,1338:30691/TCP   44h
+kache-service   LoadBalancer   10.110.92.73   localhost     80:30135/TCP,3129:32284/TCP,6067:30691/TCP   44h
 kubernetes      ClusterIP      10.96.0.1      <none>        443/TCP                                      44h
 redis-master    ClusterIP      10.97.188.34   <none>        6379/TCP                                     44h
 ```
@@ -223,13 +223,13 @@ redis-master    ClusterIP      10.97.188.34   <none>        6379/TCP            
 Use the above endpoints to access the service:
 
 ``` sh
-curl http://127.0.0.1:1337/
+curl http://127.0.0.1:3129/
 ```
 
 Access the API:
 
 ``` sh
-curl http://127.0.0.1:1338/api/
+curl http://127.0.0.1:6067/api/
 ```
 
 ## Troubleshooting

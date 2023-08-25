@@ -20,9 +20,8 @@ services:
     # Expose ports that are configured in the kache config file.
     ports:
       - "80:80"
-      - "8080:8080"
-      - "1337:1337"
-      - "1338:1338"
+      - "3129:3129"
+      - "6067:6067"
     # Mount the config file.
     volumes:
       - "./../kache.sample.yml:/etc/kache/kache.sample.yml"
@@ -45,4 +44,4 @@ docker-compose -f deploy/docker/docker-compose.yml up
 ```
 
 ### Access kache
-You can now access the service under `http://localhost:8080/` and the API under `http://localhost:1338/api/cache/keys` which, for example, returns all the keys currently in the cache.
+You can now access the service under `http://localhost:3129/` and the API under `http://localhost:6067/api/cache/keys` which, for example, returns all the keys currently in the cache.

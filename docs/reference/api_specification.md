@@ -101,7 +101,7 @@ This enables the API and exposes its endpoints via the specified port.
   ``` yaml
   api:
     # API port.
-    port: 1338
+    port: 6067
   ```
 
 ### Prefix
@@ -112,7 +112,7 @@ Configure a custom path prefix for all API endpoints, other than debug, version,
   ``` yaml
   api:
     # Enable API at port.
-    port: 1338
+    port: 6067
     # Customize path prefix, default is '/api'.
     prefix: "/custom-api-prefix/"
   ```
@@ -128,7 +128,7 @@ any request is allowed.
   ``` yaml
   api:
     # Enable API at port.
-    port: 1338
+    port: 6067
     # Access control list. If empty or not specified at all, 
     # any request is allowed to access API resources and objects.
     acl: "127.0.0.1, 10.22.0.0"
@@ -142,7 +142,7 @@ Activate endpoints for general debug informations.
   ``` yaml
   api:
     # API port.
-    port: 1338
+    port: 6067
     # Activate debug endpoints.
     debug: true
   ```
