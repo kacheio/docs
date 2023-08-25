@@ -6,7 +6,7 @@
     web1:
       addr: :80
     web2:
-      addr: :1337
+      addr: :3129
 
   upstreams:
     - name: service1
@@ -17,7 +17,7 @@
       addr: "http://example.com"
 
   api:
-    port: 1338
+    port: 6067
     debug: true
 
   logging:

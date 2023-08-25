@@ -8,7 +8,7 @@ For example, the following configuration exposes the API on the specified port a
   ``` yaml
   api:
     # API port.
-    port: 1338
+    port: 6067
     # Activate debug endpoints.
     debug: true
   ```
