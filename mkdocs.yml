@@ -39,9 +39,20 @@ theme:
     - toc.follow
     # - toc.integrate
   palette:
-    scheme: white
-    primary: white
-    accent: purple
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: pink
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: white
+      accent: pink
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
   font:
     text: Roboto
     code: Roboto Mono
